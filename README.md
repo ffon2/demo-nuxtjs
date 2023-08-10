@@ -3,7 +3,7 @@
 ```bash
 $ npm ci
 
-# serve with hot reload at localhost:3000 (ต่อ api ที่ localhost:8080)
+# serve with hot reload at localhost:3000
 $ npm run dev
 
 # build static
