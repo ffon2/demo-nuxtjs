@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid login-form h-100">
-    <section class="vh-100" style="background-color: #508bfc;">
+    <section class="vh-100">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -37,48 +37,6 @@
         </div>
       </div>
     </section>
-    <!-- <div class="row justify-content-center h-100">
-      <div class="col-7 wrap-login my-auto">
-        <div class="row">
-          <div class="col-5" style="padding: 80px 0;">
-            <form @submit.prevent :class="{ 'dirty' : $v.$dirty }">
-              <div class="form-group row mb-3">
-                <div class="col-10 text-center">
-                  <h3 style="font-size: 40px; color: #717cdf; -webkit-text-stroke: 6px #717cdf; letter-spacing: 12px;">{{ $t('project_name_sh') }}</h3>
-                </div>
-              </div>
-
-              <div class="form-group row mb-2">
-                <div class="col-10">
-                  <input type="text" name="username" class="form-control" v-model="form.username" placeholder="Username" autocomplete="off">
-                  <div class="invalid-feedback" v-show="!$v.form.username.required">{{ $t('c.err__required') }}</div>
-                </div>
-              </div>
-
-              <div class="form-group row mb-3">
-                <div class="col-10 form-group-password">
-                  <input type="password" name="password" id="password" class="form-control" v-model="form.password" placeholder="Password" autocomplete="off">
-                  <span type="button" class="icon las" :class="{ 'la-eye': hiddenPassword, 'la-eye-slash': !hiddenPassword }" @click="toggleHiddenPassword()"></span>
-                  <div class="invalid-feedback" v-show="!$v.form.password.required">{{ $t('c.err__required') }}</div>
-                </div>
-              </div>
-
-              <div class="form-group row mb-5">
-                <div class="col-10 text-right">
-                  <span class="text-forgot" @click="openModal">Forgot Password?</span>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-10">
-                  <button class="login-btn btn btn-block btn-lg d-none" @click="login()" :disabled="isDisabled">Login</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -130,7 +88,7 @@ export default {
       password.setAttribute('type', type)
       this.hiddenPassword = !this.hiddenPassword
     },
-    login () {
+    async login () {
 
       // validate form
       this.$v.$touch()
@@ -138,7 +96,13 @@ export default {
         this.toast('warning', 'Please fill in the correct information !')
         return
       }
-      window.location.href = '/'
+      const ok = await this.$auth.login(this.form.username, this.form.password)
+      console.log('ok', ok)
+      if (ok) {
+        window.location.href = '/'
+      } else {
+        window.location.href = ok
+      }
     },
   }
 }
@@ -147,7 +111,7 @@ export default {
 <style>
 body {
   height: 100%;
-  background: linear-gradient(to right, #886CC8, #6F7EE2);
+  background: linear-gradient(to right, #ded5f4, #acb6f5);
 }
 html, #__nuxt, #__layout {
   height: 100%;

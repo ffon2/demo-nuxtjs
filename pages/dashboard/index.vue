@@ -9,15 +9,15 @@
                 <div class="card">
                   <div class="card-header p-2">
                     <div class="title ml-2">
-                      {{ $t('Work Items Assigned to me') }}
+                      Work Items Assigned to me
                     </div>
                   </div>
                   <div class="card-body" style="height: 135px;">
                     <b-row class="mt-2 mb-2">
                       <b-col class="ml-4">
-                        <h2 class="mb-0">{{ 5 | fmtNumber(0) }}</h2>
+                        <h2 class="mb-0">{{ 5 }}</h2>
                         <h3>
-                          <small class="text-muted">{{ $t('Total Work Items') }}</small>
+                          <small class="text-muted">Total Work Items</small>
                         </h3>
                       </b-col>
                     </b-row>
@@ -28,15 +28,15 @@
                 <div class="card">
                   <div class="card-header p-2">
                     <div class="title ml-2">
-                      {{ $t('Pending Work Items') }}
+                      Pending Work Items
                     </div>
                   </div>
                   <div class="card-body" style="height: 135px;">
                     <b-row class="mt-2 mb-2">
                       <b-col class="ml-4">
-                        <h2 class="mb-0">{{ 4 | fmtNumber(0) }}</h2>
+                        <h2 class="mb-0">{{ 4 }}</h2>
                         <h3>
-                          <small class="text-muted">{{ $t('Total Work Items') }}</small>
+                          <small class="text-muted">Total Work Items</small>
                         </h3>
                       </b-col>
                     </b-row>
@@ -49,15 +49,15 @@
                 <div class="card">
                   <div class="card-header p-2">
                     <div class="title ml-2">
-                      {{ $t('Completed Work Items') }}
+                      Completed Work Items
                     </div>
                   </div>
                   <div class="card-body" style="height: 135px;">
                     <b-row class="mt-2 mb-2">
                       <b-col class="ml-4">
-                        <h2 class="mb-0">{{ 5 | fmtNumber(0) }}</h2>
+                        <h2 class="mb-0">{{ 5 }}</h2>
                         <h3>
-                          <small class="text-muted">{{ $t('Total Work Items') }}</small>
+                          <small class="text-muted">Total Work Items</small>
                         </h3>
                       </b-col>
                     </b-row>
@@ -68,15 +68,15 @@
                 <div class="card">
                   <div class="card-header p-2">
                     <div class="title ml-2">
-                      {{ $t('Work Items Due by this week') }}
+                      Work Items Due by this week
                     </div>
                   </div>
                   <div class="card-body" style="height: 135px;">
                     <b-row class="mt-2 mb-2">
                       <b-col class="ml-4">
-                        <h2 class="mb-0">{{ 3 | fmtNumber(0) }}</h2>
+                        <h2 class="mb-0">{{ 3 }}</h2>
                         <h3>
-                          <small class="text-muted">{{ $t('Total Work Items') }}</small>
+                          <small class="text-muted">Total Work Items</small>
                         </h3>
                       </b-col>
                     </b-row>
@@ -89,7 +89,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <div class="title ml-2">
-                  {{ $t('Work Items by Status') }}
+                  Work Items by Status
                 </div>
                 <div class="action">
                   <b-dropdown variant="link" no-caret toggle-class="mr-2 p-0 text-decoration-none">
@@ -117,7 +117,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <div class="title ml-2">
-                  {{ $t('Overdue Work Items') }}
+                  Overdue Work Items
                 </div>
                 <div class="action">
                   <b-dropdown variant="link" no-caret toggle-class="mr-2 p-0 text-decoration-none">
@@ -133,7 +133,6 @@
                     <table class="table borderless">
                       <thead class="table-danger">
                         <tr>
-                          <!-- <th scope="col">No.</th> -->
                           <th scope="col">Overdue</th>
                           <th scope="col">Work Items</th>
                           <th scope="col">Due Date</th>
@@ -141,7 +140,6 @@
                       </thead>
                       <tbody>
                         <tr v-for="(row, index) in rows" :key="index">
-                          <!-- <th scope="row">{{ index + 1 }}</th> -->
                           <th>{{ row[1] }}</th>
                           <td>{{ row[2] }}</td>
                           <td>{{ row[3] }}</td>
@@ -157,7 +155,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <div class="title ml-2">
-                  {{ $t('Upcoming Work Items') }}
+                  Upcoming Work Items
                 </div>
                 <div class="action">
                   <b-dropdown variant="link" no-caret toggle-class="mr-2 p-0 text-decoration-none">
@@ -194,34 +192,6 @@
             </div>
           </b-col>
         </b-row>
-
-        <!-- <b-row>
-          <b-col md="6">
-            <div class="card">
-              <div class="card-header p-2">
-                <div class="title ml-2">
-                  {{ $t('Work Items by State (Bar)') }}
-                </div>
-                <div class="action">
-                  <b-dropdown variant="link" no-caret toggle-class="mr-2 p-0 text-decoration-none">
-                    <template #button-content>
-                      <i class="las la-ellipsis-h icon-title text-dark"></i>
-                    </template>
-                  </b-dropdown>
-                </div>
-              </div>
-              <div class="card-body">
-                <b-row class="mt-2 mb-2">
-                  <b-col class="ml-4">
-                    <b-row>
-                      <v-chart :option="optionBar" style="height: 300px;" />
-                    </b-row>
-                  </b-col>
-                </b-row>
-              </div>
-            </div>
-          </b-col>
-        </b-row> -->
 
       </b-col>
     </b-row>

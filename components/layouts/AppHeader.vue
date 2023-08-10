@@ -31,10 +31,8 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
           <template #button-content>
             <b>Admin</b>
-            <!-- <em class="mr-1">{{ user.employeeCode }} : {{ locale == 'th' ? user.employeeName : user.employeeNameEn }}</em> -->
           </template>
           <b-dropdown-item href="/profile"><i class="las la-user mr-2" style="font-size: 16px;"></i> Profile</b-dropdown-item>
           <b-dropdown-item href="" @click="changePassword()"><i class="las la-key mr-2" style="font-size: 16px;"></i> Change Password</b-dropdown-item>

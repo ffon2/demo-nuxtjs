@@ -8,9 +8,9 @@
     </div>
 
     <div class="sidebar_content">
-      <div class="menu" :class="{ 'active' : activeMenu == '' }" v-b-tooltip.hover.right="sideBarMini ? $t('dashboard') : null">
+      <div class="menu" :class="{ 'active' : activeMenu == '' }" v-b-tooltip.hover.right="sideBarMini ? 'Dashboard' : null">
         <nuxt-link to="/" @click.native="menuClick($event); activeMenu = ''">
-          <i class="las la-md la-th-large pr-2"></i> <span>{{ $t('dashboard') }}</span>
+          <i class="las la-md la-th-large pr-2"></i> <span>Dashboard</span>
         </nuxt-link>
       </div>
     </div>
