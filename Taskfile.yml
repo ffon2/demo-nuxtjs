@@ -1,0 +1,94 @@
+version: '3'
+
+env:
+  APPSERVER_HOST_DEV: aspn-vps-smepos
+  APPSERVER_HOST_UAT: bigc-smepos-uat
+  APPSERVER_HOST_PROD: bigc-smepos-prod
+  BUILD_DIST: dist/
+  WEB_PATH: /app/smepos/backoffice-web/
+  BUILD_ENV_DEV: aspnvps
+  BUILD_ENV_UAT: uat
+  BUILD_ENV_PROD: prod
+  GIT_DEFAULT_BRANCH: develop
+
+tasks:
+  pull-latest-code:
+    run: once
+    cmds:
+      - git checkout {{.GIT_BRANCH | default "develop" }}
+      - git pull
+  install-deps:
+    run: once
+    deps:
+      - pull-latest-code
+    cmds:
+      - npm ci
+  build:
+    deps:
+      - task: pull-latest-code
+        vars: { GIT_BRANCH: "{{.GIT_BRANCH | default .GIT_DEFAULT_BRANCH}}"}
+      - task: install-deps
+    cmds:
+      - npm run generate:{{.BUILD_ENV}}
+  build-dev:
+    cmds:
+      - task: build
+        vars: { BUILD_ENV: "{{.BUILD_ENV_DEV}}"}
+  build-uat:
+    cmds:
+      - task: build
+        vars: { BUILD_ENV: "{{.BUILD_ENV_UAT}}"}
+  build-prod:
+    cmds:
+      - task: build
+        vars: { BUILD_ENV: "{{.BUILD_ENV_PROD}}", GIT_BRANCH: "master"}
+  update-web:
+    cmds:
+      # - rsync -avzh --delete {{.BUILD_DIST}} {{.APPSERVER_HOST}}:{{.BACKOFFICE_WEB_PATH}}
+      - rsync -avzh {{.BUILD_DIST}} {{.APPSERVER_HOST}}:{{.BACKOFFICE_WEB_PATH}}
+  update-dev:
+    deps:
+      - build-dev
+    cmds:
+      - task: update-web
+        vars: { APPSERVER_HOST: "{{.APPSERVER_HOST_DEV}}", BACKOFFICE_WEB_PATH: "{{.WEB_PATH}}" }
+  update-uat:
+    deps:
+      - build-uat
+    cmds:
+      - task: update-web
+        vars: { APPSERVER_HOST: "{{.APPSERVER_HOST_UAT}}", BACKOFFICE_WEB_PATH: "{{.WEB_PATH}}" }
+  update-prod:
+    deps:
+      - build-prod
+    cmds:
+      - task: update-web
+        vars: { APPSERVER_HOST: "{{.APPSERVER_HOST_PROD}}", BACKOFFICE_WEB_PATH: "{{.WEB_PATH}}" }
+  update-all:
+    cmds:
+      - task: update-dev
+      - task: update-uat
+  check-sync:
+    cmds:
+      - rsync --dry-run -avzh {{.BUILD_DIST}} {{.APPSERVER_HOST}}:{{.BACKOFFICE_WEB_PATH}}
+  check-sync-dev:
+    cmds:
+      - task: check-sync
+        vars: { APPSERVER_HOST: "{{.APPSERVER_HOST_DEV}}", BACKOFFICE_WEB_PATH: "{{.WEB_PATH}}" }
+  check-sync-uat:
+    cmds:
+      - task: check-sync
+        vars: { APPSERVER_HOST: "{{.APPSERVER_HOST_UAT}}", BACKOFFICE_WEB_PATH: "{{.WEB_PATH}}" }
+  check-sync-prod:
+    cmds:
+      - task: check-sync
+        vars: { APPSERVER_HOST: "{{.APPSERVER_HOST_PROD}}", BACKOFFICE_WEB_PATH: "{{.WEB_PATH}}" }
+  connect-dev:
+    cmds:
+      - ssh {{.APPSERVER_HOST_DEV }}
+  connect-uat:
+    cmds:
+      - ssh {{.APPSERVER_HOST_UAT }}
+  connect-prod:
+    cmds:
+      - ssh {{.APPSERVER_HOST_PROD }}

@@ -1,0 +1,12 @@
+{
+  "baseUrl_dev": "TBD",
+  "baseUrl_uat": "TBD",
+  "fixturesFolder": "test/cypress/fixtures",
+  "integrationFolder": "test/cypress/integration",
+  "pluginsFile": "test/cypress/plugins",
+  "screenshotsFolder": "test/cypress/screenshots",
+  "supportFile": "test/cypress/support",
+  "videosFolder": "test/cypress/videos",
+  "viewportWidth": 1366,
+  "viewportHeight": 750
+}

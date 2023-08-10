@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cron Expression Help</title>
+		<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link rel="shortcut icon" href="img/fpad.ico">
+	</head>
+	
+	<body>
+		<table style="width:800px; margin: 0px 0px 10px 10px">
+			<tr>
+				<td><h2>CronTrigger</h2></td>
+			</tr>
+			<tr>
+				<td><h2>Format</h2></td>
+			</tr>
+			<tr>
+				<td>
+					<p>
+						&emsp;A cron expression is a string comprised of 6 or 7 fields 
+						separated by white space. Fields can contain any of the 
+						allowed values, along with various combinations of the allowed 
+						special characters for that field. The fields are as follows:
+					</p>	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table cellpadding="3px" cellspacing="3px" style="width: 100%; background-color: #f8f8f8;">
+							<tbody>
+									<tr bgcolor="#e5e5e5">
+											<td width="20%" style="text-align: center;"><h5>Field Name</h5></td>
+											<td width="20%" style="text-align: center;"><h5>Mandatory</h5></td>
+											<td width="30%" style="text-align: center;"><h5>Allowed Values</h5></td>
+											<td width="30%" style="text-align: center;"><h5>Special Characters</h5></td>
+									</tr>
+									<tr bgcolor="#f8f8f8">
+											<td>Seconds</td>
+											<td>YES</td>
+											<td>0-59</td>
+											<td>, - * /</td>
+									</tr>
+									<tr bgcolor="#ffffff">
+											<td>Minutes</td>
+											<td>YES</td>
+											<td>0-59</td>
+											<td>, - * /</td>
+									</tr>
+									<tr bgcolor="#f8f8f8">
+											<td>Hours</td>
+											<td>YES</td>
+											<td>0-23</td>
+											<td>, - * /</td>
+									</tr>
+									<tr bgcolor="#ffffff">
+											<td>Day of month</td>
+											<td>YES</td>
+											<td>1-31</td>
+											<td>, - * ? / L W<br clear="all" />
+											</td>
+									</tr>
+									<tr bgcolor="#f8f8f8">
+											<td>Month</td>
+											<td>YES</td>
+											<td>1-12 or JAN-DEC</td>
+											<td>, - * /</td>
+									</tr>
+									<tr bgcolor="#ffffff">
+											<td>Day of week</td>
+											<td>YES</td>
+											<td>1-7 or SUN-SAT</td>
+											<td>, - * ? / L #</td>
+									</tr>
+									<tr bgcolor="#f8f8f8">
+											<td>Year</td>
+											<td>NO</td>
+											<td>empty, 1970-2099</td>
+											<td>, - * /</td>
+									</tr>
+							</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>
+						&emsp;So cron expressions can be as simple as this: &#42; * * * ? * 
+						or more complex, like this: 0 0/5 14,18,3-39,52 ? JAN,MAR,SEP MON-FRI 2002-2010
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h2>Special characters</h2>	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>
+							<b>&#42;</b> (<em>"all values"</em>) - used to select all values within a field. For example, "*" in the minute field means <em>"every minute"</em>.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr height="10">
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>
+							<b>?</b> (<em>"no specific value"</em>) - useful when you need to specify something in one of the
+							two fields in which the character is allowed, but not the other. For example, if I want my trigger to fire on a
+							particular day of the month (say, the 10th), but don't care what day of the week that happens to be, I would put
+							"10" in the day-of-month field, and "?" in the day-of-week field. See the examples below for clarification.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr height="10">
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>
+							<b>&#45;</b> &#45; used to specify ranges. For example, "10-12" in the hour field means <em>"the hours 10, 11 and 12"</em>.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr height="10">
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>
+							<b>,</b> &#45; used to specify additional values. For example, "MON,WED,FRI" in the day-of-week field means <em>"the days Monday, Wednesday, and Friday"</em>.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr height="10">
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>
+							<b>/</b> &#45; used to specify increments. For example, "0/15" in the seconds field means <em>"the
+							seconds 0, 15, 30, and 45"</em>. And "5/15" in the seconds field means <em>"the seconds 5, 20, 35, and 50"</em>. You can
+							also specify '/' after the '<b>' character - in this case '</b>' is equivalent to having '0' before the '/'. '1/3'
+							in the day-of-month field means <em>"fire every 3 days starting on the first day of the month"</em>.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr height="10">
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>
+							<b>L</b> (<em>"last"</em>) - has different meaning in each of the two fields in which it is
+							allowed. For example, the value "L" in the day-of-month field means <em>"the last day of the month"</em> &#45; day
+							31 for January, day 28 for February on non-leap years. If used in the day-of-week field by itself, it simply means
+							"7" or "SAT". But if used in the day-of-week field after another value, it means <em>"the last xxx day of the
+							month"</em> &#45; for example "6L" means <em>"the last friday of the month"</em>. When using the 'L' option, it is
+							important not to specify lists, or ranges of values, as you'll get confusing results.
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr height="10">
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<h2>Examples</h2>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h2>Here are some examples</h2>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<table cellpadding="3px" cellspacing="3px" style="width: 100%; background-color: #f8f8f8;">
+						<tbody>
+								<tr bgcolor="#e5e5e5">
+										<td width="40%" style="text-align: center;"><h5>Expression</h5></td>
+										<td width="60%" style="text-align: center;"><h5>Meaning</h5></td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 0 12 * * ?</td>
+										<td>Fire at 12pm (noon) every day</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 15 10 ? * *</td>
+										<td>Fire at 10:15am every day</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 15 10 * * ?</td>
+										<td>Fire at 10:15am every day</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 15 10 * * ? *</td>
+										<td>Fire at 10:15am every day</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 15 10 * * ? 2005</td>
+										<td>Fire at 10:15am every day during the year 2005</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 * 14 * * ?</td>
+										<td>Fire every minute starting at 2pm and ending at 2:59pm, every day</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 0/5 14 * * ?</td>
+										<td>Fire every 5 minutes starting at 2pm and ending at 2:55pm, every day</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 0/5 14,18 * * ?</td>
+										<td>Fire every 5 minutes starting at 2pm and ending at 2:55pm, AND fire every 5
+										minutes starting at 6pm and ending at 6:55pm, every day</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 0-5 14 * * ?</td>
+										<td>Fire every minute starting at 2pm and ending at 2:05pm, every day</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 10,44 14 ? 3 WED</td>
+										<td>Fire at 2:10pm and at 2:44pm every Wednesday in the month of March.</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 15 10 ? * MON-FRI</td>
+										<td>Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 15 10 15 * ?</td>
+										<td>Fire at 10:15am on the 15th day of every month</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 15 10 L * ?</td>
+										<td>Fire at 10:15am on the last day of every month</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 15 10 ? * 6L</td>
+										<td>Fire at 10:15am on the last Friday of every month</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 15 10 ? * 6L 2002-2005</td>
+										<td>Fire at 10:15am on every last friday of every month during the years 2002,
+										2003, 2004 and 2005</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 15 10 ? * 6#3</td>
+										<td>Fire at 10:15am on the third Friday of every month</td>
+								</tr>
+								<tr bgcolor="#f8f8f8">
+										<td>0 0 12 1/5 * ?</td>
+										<td>Fire at 12pm (noon) every 5 days every month, starting on the first day of the
+										month.</td>
+								</tr>
+								<tr bgcolor="#ffffff">
+										<td>0 11 11 11 11 ?</td>
+										<td>Fire every November 11th at 11:11am.</td>
+								</tr>
+						</tbody>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month fields&#33;
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+{
+    "files.eol": "\n",
+    "editor.tabSize": 2,
+    "search.exclude": {
+        "**/static/vendor": true,
+        "**/static/fonts": true,
+        "**/node_modules": true,
+        "**/.nuxt": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "javascript",
+        "vue"
+    ]
+}
